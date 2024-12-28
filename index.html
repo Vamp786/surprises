@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://img.pikbest.com/back_our/20200526/qiantu-drawing-cartoon-blue-birthday-background_2778257.jpg!w700wp') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #FF69B4;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #FFD700;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #fff; /* Default background */
+            font-size: 3em;
+        }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+
+        .box .chest-icon {
+            display: block; /* Show chest icon initially */
+        }
+
+        .box .main-icon {
+            display: none; /* Hide the main icon initially */
+        }
+
+        .box.revealed .chest-icon {
+            display: none; /* Hide chest icon after reveal */
+        }
+
+        .box.revealed .main-icon {
+            display: block; /* Show main icon after reveal */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Birthday Surprise!</h1>
+        <p>Choose 2 hidden treasures from the chest!</p>
+        <div class="box-container">
+            <div class="box" onclick="revealImage(this)">
+                <div class="chest-icon">🗝️</div> <!-- Treasure Chest Icon -->
+                <div class="main-icon">🧸</div> <!-- Teddy Icon -->
+            </div>
+            <div class="box" onclick="revealImage(this)">
+                <div class="chest-icon">🗝️</div> <!-- Treasure Chest Icon -->
+                <div class="main-icon">💍</div> <!-- Jewelry Icon -->
+            </div>
+            <div class="box" onclick="revealImage(this)">
+                <div class="chest-icon">🗝️</div> <!-- Treasure Chest Icon -->
+                <div class="main-icon">🍵</div> <!-- Cup Icon -->
+            </div>
+            <div class="box" onclick="revealImage(this)">
+                <div class="chest-icon">🗝️</div> <!-- Treasure Chest Icon -->
+                <div class="main-icon">🐷</div> <!-- Piggy Icon -->
+            </div>
+            <div class="box" onclick="revealImage(this)">
+                <div class="chest-icon">🗝️</div> <!-- Treasure Chest Icon -->
+                <div class="main-icon">👜</div> <!-- Bag Icon -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedCount = 0;
+        const icons = ['🧸', '💍', '🍵', '🐷', '👜']; // List of main icons
+
+        // Shuffle function to randomize the icons
+        function shuffleIcons() {
+            for (let i = icons.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [icons[i], icons[j]] = [icons[j], icons[i]]; // Swap the icons
+            }
+        }
+
+        // Assign the shuffled icons to the boxes
+        function assignIcons() {
+            const boxes = document.querySelectorAll('.box');
+            for (let i = 0; i < boxes.length; i++) {
+                const mainIcon = boxes[i].querySelector('.main-icon');
+                mainIcon.textContent = icons[i]; // Set the shuffled icon
+            }
+        }
+
+        // Shuffle and assign icons when the page loads
+        shuffleIcons();
+        assignIcons();
+
+        function revealImage(box) {
+            if (selectedCount < 2 && !box.classList.contains('revealed')) {
+                box.classList.add('revealed');
+                selectedCount++;
+            } else if (!box.classList.contains('revealed')) {
+                alert("You've already selected 2 images!");
+            }
+        }
+    </script>
+</body>
+</html>
